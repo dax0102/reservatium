@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme"/>
+    <style name="Theme.Reservatium" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryVariant">@color/color_primary_variant</item>
+        <item name="colorOnPrimary">@color/color_on_primary</item>
+    </style>
+
+    <style name="Widget.Reservium.Navigation" parent="ExpandableBottomBar">
+        <item name="exb_backgroundColor">?attr/colorPrimary</item>
+        <item name="exb_itemBackgroundCornerRadius">32dp</item>
+        <item name="exb_itemInactiveColor">?attr/colorControlNormal</item>
+        <item name="exb_transitionDuration">50</item>
+        <item name="layout_behavior">github.com.st235.lib_expandablebottombar.behavior.ExpandableBottomBarScrollableBehavior</item>
+    </style>
+
+</resources>

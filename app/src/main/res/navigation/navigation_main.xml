@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_main"
+    app:startDestination="@id/fragment_reservation">
+
+    <fragment
+        android:id="@+id/fragment_reservation"
+        android:name="me.asayah.reservatium.features.reservation.ReservationFragment"/>
+
+    <fragment
+        android:id="@+id/fragment_customer"
+        android:name="me.asayah.reservatium.features.customer.CustomerFragment"/>
+
+    <fragment
+        android:id="@+id/fragment_room"
+        android:name="me.asayah.reservatium.features.room.RoomFragment"/>
+
+    <action
+        android:id="@+id/action_to_reservation_fragment"
+        app:destination="@id/fragment_reservation"/>
+
+    <action
+        android:id="@+id/action_to_customer_fragment"
+        app:destination="@id/fragment_customer"/>
+
+    <action
+        android:id="@+id/action_to_room_fragment"
+        app:destination="@id/fragment_room"/>
+
+</navigation>

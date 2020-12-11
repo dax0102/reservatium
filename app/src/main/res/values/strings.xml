@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Reservatium</string>
+
+    <string name="navigation_reservations">Reservations</string>
+    <string name="navigation_customers">Customers</string>
+    <string name="navigation_rooms">Rooms</string>
+</resources>
