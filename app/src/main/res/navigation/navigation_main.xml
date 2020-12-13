@@ -2,31 +2,38 @@
 <navigation
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_main"
-    app:startDestination="@id/fragment_reservation">
+    app:startDestination="@id/navigation_reservations">
 
     <fragment
-        android:id="@+id/fragment_reservation"
-        android:name="me.asayah.reservatium.features.reservation.ReservationFragment"/>
+        android:id="@+id/navigation_reservations"
+        android:name="me.asayah.reservatium.features.reservation.ReservationFragment"
+        android:label="@string/navigation_reservations"
+        tools:layout="@layout/fragment_reservation"/>
 
     <fragment
-        android:id="@+id/fragment_customer"
-        android:name="me.asayah.reservatium.features.customer.CustomerFragment"/>
+        android:id="@+id/navigation_customers"
+        android:name="me.asayah.reservatium.features.customer.CustomerFragment"
+        android:label="@string/navigation_customers"
+        tools:layout="@layout/fragment_customer"/>
 
     <fragment
-        android:id="@+id/fragment_room"
-        android:name="me.asayah.reservatium.features.room.RoomFragment"/>
+        android:id="@+id/navigation_rooms"
+        android:name="me.asayah.reservatium.features.room.RoomFragment"
+        android:label="@string/navigation_rooms"
+        tools:layout="@layout/fragment_room"/>
 
     <action
         android:id="@+id/action_to_reservation_fragment"
-        app:destination="@id/fragment_reservation"/>
+        app:destination="@id/navigation_reservations"/>
 
     <action
         android:id="@+id/action_to_customer_fragment"
-        app:destination="@id/fragment_customer"/>
+        app:destination="@id/navigation_customers"/>
 
     <action
         android:id="@+id/action_to_room_fragment"
-        app:destination="@id/fragment_room"/>
+        app:destination="@id/navigation_rooms"/>
 
 </navigation>

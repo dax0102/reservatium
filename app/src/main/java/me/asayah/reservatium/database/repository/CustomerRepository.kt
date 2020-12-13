@@ -13,6 +13,6 @@ class CustomerRepository @Inject constructor(private val customerDao: CustomerDa
 
     suspend fun update(customer: Customer) = customerDao.update(customer)
 
-    suspend fun fetch(): LiveData<List<Customer>> = customerDao.fetch()
+    fun fetch(): LiveData<List<Customer>> = customerDao.fetch()
 
 }

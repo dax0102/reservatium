@@ -8,10 +8,10 @@ import me.asayah.reservatium.database.dao.CustomerDao
 import me.asayah.reservatium.database.dao.ReservationDao
 import me.asayah.reservatium.database.dao.RoomDao
 import me.asayah.reservatium.features.customer.Customer
-import me.asayah.reservatium.features.reservation.ReservationCore
-import me.asayah.reservatium.features.room.Room
+import me.asayah.reservatium.features.reservation.Reservation
+import me.asayah.reservatium.features.room.RoomCore
 
-@androidx.room.Database(entities = [Room::class, Customer::class, ReservationCore::class],
+@androidx.room.Database(entities = [RoomCore::class, Customer::class, Reservation::class],
     version = Database.DATABASE_VERSION, exportSchema = true)
 @TypeConverters(DateTimeConverters::class)
 abstract class Database: RoomDatabase() {

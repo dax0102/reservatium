@@ -6,14 +6,80 @@
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryVariant">@color/color_primary_variant</item>
         <item name="colorOnPrimary">@color/color_on_primary</item>
+        <item name="colorSecondary">@color/color_secondary</item>
+        <item name="colorSecondaryVariant">@color/color_secondary_variant</item>
+        <item name="colorOnSecondary">@color/color_on_secondary</item>
+        <item name="colorSurface">@color/color_surface</item>
+        <item name="colorOnSurface">@color/color_on_surface</item>
+        <item name="android:windowBackground">@color/color_window_background</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+
+        <item name="appBarLayoutStyle">@style/Widget.Reservatium.AppBar</item>
+        <item name="toolbarStyle">@style/Widget.Reservatium.Toolbar</item>
+        <item name="toolbarNavigationButtonStyle">@style/Widget.Reservatium.Toolbar.Navigation</item>
+        <item name="actionOverflowButtonStyle">@style/Widget.Reservatium.Toolbar.Overflow</item>
     </style>
 
-    <style name="Widget.Reservium.Navigation" parent="ExpandableBottomBar">
+    <!-- Widgets -->
+    <style name="Widget.Reservatium.AppBar" parent="Widget.MaterialComponents.AppBarLayout.Primary"/>
+    <style name="Widget.Reservatium.Toolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="titleTextColor">@color/color_on_primary</item>
+        <item name="titleTextAppearance">@style/TextAppearance.Reservatium.Title</item>
+        <item name="contentInsetStart">@dimen/toolbar_keyline</item>
+        <item name="maxButtonHeight">48dp</item>
+        <item name="android:background">@color/color_toolbar_background</item>
+        <item name="android:paddingLeft">@dimen/toolbar_padding_horizontal</item>
+        <item name="android:paddingRight">@dimen/toolbar_padding_horizontal</item>
+    </style>
+    <style name="Widget.Reservatium.Toolbar.Navigation" parent="Widget.AppCompat.Toolbar.Button.Navigation">
+        <item name="tint">@color/color_on_primary</item>
+        <item name="android:minWidth">48dp</item>
+    </style>
+    <style name="Widget.Reservatium.Toolbar.Overflow" parent="Widget.AppCompat.ActionButton.Overflow">
+        <item name="tint">@color/color_on_primary</item>
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:paddingEnd">0dp</item>
+    </style>
+    <style name="Widget.Reservatium.Navigation" parent="ExpandableBottomBar">
         <item name="exb_backgroundColor">?attr/colorPrimary</item>
         <item name="exb_itemBackgroundCornerRadius">32dp</item>
         <item name="exb_itemInactiveColor">?attr/colorControlNormal</item>
         <item name="exb_transitionDuration">50</item>
         <item name="layout_behavior">github.com.st235.lib_expandablebottombar.behavior.ExpandableBottomBarScrollableBehavior</item>
+    </style>
+    <style name="Widget.Reservatium.TextInput.Layout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+
+    </style>
+
+    <!-- TextAppearance -->
+    <style name="TextAppearance.Reservatium" parent="TextAppearance.AppCompat"/>
+    <style name="TextAppearance.Reservatium.Title" parent="TextAppearance.Reservatium">
+        <item name="fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/color_on_primary</item>
+    </style>
+    <style name="TextAppearance.Reservatium.Body" parent="TextAppearance.Reservatium">
+        <item name="android:textColor">@color/color_primary_text</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="TextAppearance.Reservatium.Medium" parent="TextAppearance.Reservatium">
+        <item name="fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/color_primary_text</item>
+    </style>
+    <style name="TextAppearance.Reservatium.List.Title" parent="TextAppearance.Reservatium.Medium">
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="TextAppearance.Reservatium.List.Body" parent="TextAppearance.Reservatium.Body">
+        <item name="android:textColor">@color/color_secondary_text</item>
+    </style>
+    <style name="TextAppearance.Reservatium.Hint" parent="TextAppearance.Reservatium">
+        <item name="fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
     </style>
 
 </resources>

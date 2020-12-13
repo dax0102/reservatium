@@ -1,17 +1,28 @@
 package me.asayah.reservatium.features.reservation
 
 import android.os.Parcelable
-import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 import me.asayah.reservatium.features.customer.Customer
-import me.asayah.reservatium.features.room.Room
+import me.asayah.reservatium.features.room.RoomCore
+import java.time.LocalDateTime
+import java.util.*
 
 @Parcelize
-data class Reservation(
-    @Embedded
-    var reservation: ReservationCore,
-    @Embedded
-    var customer: Customer,
-    @Embedded
-    var room: Room
-): Parcelable {}
+@Entity(tableName = "reservations", foreignKeys = [
+    ForeignKey(entity = Customer::class, parentColumns = arrayOf("id"),
+        childColumns = arrayOf("customer"),onDelete = ForeignKey.SET_NULL),
+    ForeignKey(entity = RoomCore::class, parentColumns = arrayOf("id"),
+        childColumns = arrayOf("room"), onDelete = ForeignKey.SET_NULL)
+])
+data class Reservation @JvmOverloads constructor(
+    @PrimaryKey
+    var id: String = UUID.randomUUID().toString(),
+    var room: String? = null,
+    var customer: String? = null,
+    var startDate: LocalDateTime? = null,
+    var endDate: LocalDateTime? = null,
+    var numberOfGuests: Int = 0,
+): Parcelable

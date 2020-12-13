@@ -2,17 +2,17 @@ package me.asayah.reservatium.database.repository
 
 import androidx.lifecycle.LiveData
 import me.asayah.reservatium.database.dao.ReservationDao
-import me.asayah.reservatium.features.reservation.ReservationCore
+import me.asayah.reservatium.features.reservation.Reservation
 import javax.inject.Inject
 
 class ReservationRepository @Inject constructor(private val reservationDao: ReservationDao) {
 
-    suspend fun insert(reservation: ReservationCore) = reservationDao.insert(reservation)
+    suspend fun insert(reservation: Reservation) = reservationDao.insert(reservation)
 
-    suspend fun remove(reservation: ReservationCore) = reservationDao.remove(reservation)
+    suspend fun remove(reservation: Reservation) = reservationDao.remove(reservation)
 
-    suspend fun update(reservation: ReservationCore) = reservationDao.update(reservation)
+    suspend fun update(reservation: Reservation) = reservationDao.update(reservation)
 
-    suspend fun fetch(): LiveData<List<ReservationCore>> = reservationDao.fetch()
+    fun fetch(): LiveData<List<Reservation>> = reservationDao.fetch()
 
 }

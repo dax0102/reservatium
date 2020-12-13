@@ -2,17 +2,17 @@ package me.asayah.reservatium.database.repository
 
 import androidx.lifecycle.LiveData
 import me.asayah.reservatium.database.dao.RoomDao
-import me.asayah.reservatium.features.room.Room
+import me.asayah.reservatium.features.room.RoomCore
 import javax.inject.Inject
 
 class RoomRepository @Inject constructor(private val roomDao: RoomDao) {
 
-    suspend fun insert(room: Room) = roomDao.insert(room)
+    suspend fun insert(roomCore: RoomCore) = roomDao.insert(roomCore)
 
-    suspend fun remove(room: Room) = roomDao.remove(room)
+    suspend fun remove(roomCore: RoomCore) = roomDao.remove(roomCore)
 
-    suspend fun update(room: Room) = roomDao.update(room)
+    suspend fun update(roomCore: RoomCore) = roomDao.update(roomCore)
 
-    suspend fun fetch(): LiveData<List<Room>> = roomDao.fetch()
+    fun fetch(): LiveData<List<RoomCore>> = roomDao.fetch()
 
 }

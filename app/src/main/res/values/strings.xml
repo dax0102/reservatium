@@ -4,4 +4,28 @@
     <string name="navigation_reservations">Reservations</string>
     <string name="navigation_customers">Customers</string>
     <string name="navigation_rooms">Rooms</string>
+
+    <string name="editor_new_reservation">Create Reservation</string>
+    <string name="editor_edit_reservation">Edit Reservation</string>
+    <string name="editor_new_customer">Create Customer</string>
+    <string name="editor_edit_customer">Edit Customer</string>
+    <string name="chooser_room">Select Room</string>
+    <string name="chooser_customer">Select Customer</string>
+
+    <string name="menu_add">Add</string>
+
+    <string name="input_room">Room</string>
+    <string name="input_customer">Customer</string>
+    <string name="input_start_date">Start Date</string>
+    <string name="input_end_date">End Date</string>
+    <string name="input_number_of_guests">Number of Guests</string>
+    <string name="input_customer_info">Customer Information</string>
+    <string name="input_first_name">First Name</string>
+    <string name="input_last_name">Last Name</string>
+
+    <string name="button_save">Save</string>
+
+    <string name="status_occupied">Occupied</string>
+    <string name="status_available">Available</string>
+
 </resources>
