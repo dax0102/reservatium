@@ -12,13 +12,14 @@ import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import me.asayah.reservatium.R
 import me.asayah.reservatium.databinding.FragmentRoomBinding
+import me.asayah.reservatium.features.shared.base.BaseAdapter
 import me.asayah.reservatium.features.shared.base.BaseFragment
 
 @AndroidEntryPoint
-class RoomFragment: BaseFragment() {
+class RoomFragment: BaseFragment(), BaseAdapter.ActionListener {
     private var _binding: FragmentRoomBinding? = null
 
-    private val roomAdapter = RoomAdapter()
+    private val roomAdapter = RoomAdapter(this)
     private val binding get() = _binding!!
     private val viewModel: RoomViewModel by viewModels()
 
@@ -38,6 +39,8 @@ class RoomFragment: BaseFragment() {
 
         viewModel.rooms.observe(viewLifecycleOwner) { roomAdapter.submitList(it) }
     }
+
+    override fun <T> onActionPerformed(t: T, action: BaseAdapter.ActionListener.Action) {}
 
     override fun onDestroy() {
         super.onDestroy()

@@ -19,6 +19,8 @@
         </activity>
         <activity android:name=".features.reservation.editor.ReservationEditorActivity" />
         <activity android:name=".features.customer.editor.CustomerEditorActivity" />
+        <activity android:name=".features.customer.chooser.CustomerChooserActivity"/>
+        <activity android:name=".features.room.chooser.RoomChooserActivity"/>
     </application>
 
 </manifest>

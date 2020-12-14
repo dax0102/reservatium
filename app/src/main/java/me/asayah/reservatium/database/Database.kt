@@ -9,9 +9,9 @@ import me.asayah.reservatium.database.dao.ReservationDao
 import me.asayah.reservatium.database.dao.RoomDao
 import me.asayah.reservatium.features.customer.Customer
 import me.asayah.reservatium.features.reservation.Reservation
-import me.asayah.reservatium.features.room.RoomCore
+import me.asayah.reservatium.features.room.Room
 
-@androidx.room.Database(entities = [RoomCore::class, Customer::class, Reservation::class],
+@androidx.room.Database(entities = [Room::class, Customer::class, Reservation::class],
     version = Database.DATABASE_VERSION, exportSchema = true)
 @TypeConverters(DateTimeConverters::class)
 abstract class Database: RoomDatabase() {
@@ -22,7 +22,7 @@ abstract class Database: RoomDatabase() {
 
     companion object {
         const val DATABASE_VERSION = 1
-        const val DATABASE_NAME = "reservium"
+        const val DATABASE_NAME = "reservatium.db"
 
         private var instance: Database? = null
 
@@ -31,6 +31,7 @@ abstract class Database: RoomDatabase() {
                 synchronized(Database::class) {
                     instance = androidx.room.Room.databaseBuilder(context.applicationContext,
                         Database::class.java, DATABASE_NAME)
+                        .createFromAsset("database/reservatium.db")
                         .build()
                 }
             }

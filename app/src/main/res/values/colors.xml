@@ -13,7 +13,7 @@
     <color name="color_window_background">@android:color/white</color>
 
     <color name="color_primary_text">@color/reservatium_pink_900</color>
-    <color name="color_secondary_text">?attr/colorControlNormal</color>
+    <color name="color_secondary_text">#595959</color>
 
     <color name="reservatium_pink_50">#feeae6</color>
     <color name="reservatium_pink_100">#fedbd0</color>

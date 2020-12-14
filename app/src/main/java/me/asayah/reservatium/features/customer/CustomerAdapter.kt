@@ -6,27 +6,32 @@ import android.view.ViewGroup
 import me.asayah.reservatium.databinding.LayoutItemCustomerBinding
 import me.asayah.reservatium.features.shared.base.BaseAdapter
 
-class CustomerAdapter: BaseAdapter<Customer, CustomerAdapter.CustomerViewHolder>(Customer.DIFF_UTIL) {
+class CustomerAdapter(private val actionListener: ActionListener)
+    : BaseAdapter<Customer, CustomerAdapter.CustomerViewHolder>(Customer.CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomerViewHolder {
         val binding = LayoutItemCustomerBinding.inflate(LayoutInflater.from(parent.context),
             parent, false)
-        return CustomerViewHolder(binding.root)
+        return CustomerViewHolder(binding.root, actionListener)
     }
 
     override fun onBindViewHolder(holder: CustomerViewHolder, position: Int) {
         holder.onBind(getItem(position))
     }
 
-    class CustomerViewHolder(itemView: View): BaseViewHolder(itemView) {
+    class CustomerViewHolder(itemView: View, private val actionListener: ActionListener)
+        : BaseViewHolder(itemView) {
         private var binding = LayoutItemCustomerBinding.bind(itemView)
 
         override fun <T> onBind(t: T) {
-            if (t is Customer)
-                binding.titleView.text = StringBuilder()
-                        .append(t.firstName)
-                        .append(" ")
-                        .append(t.lastName)
+            if (t is Customer) {
+                with(binding) {
+                    titleView.text = t.getName()
+                    root.setOnClickListener {
+                        actionListener.onActionPerformed(t, ActionListener.Action.SELECT)
+                    }
+                }
+            }
         }
     }
 }

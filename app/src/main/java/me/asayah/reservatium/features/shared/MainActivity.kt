@@ -13,8 +13,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import github.com.st235.lib_expandablebottombar.navigation.ExpandableBottomBarNavigationUI
 import me.asayah.reservatium.R
 import me.asayah.reservatium.databinding.ActivityMainBinding
+import me.asayah.reservatium.features.customer.Customer
 import me.asayah.reservatium.features.customer.CustomerViewModel
 import me.asayah.reservatium.features.customer.editor.CustomerEditorActivity
+import me.asayah.reservatium.features.reservation.Reservation
 import me.asayah.reservatium.features.reservation.ReservationViewModel
 import me.asayah.reservatium.features.reservation.editor.ReservationEditorActivity
 import me.asayah.reservatium.features.shared.base.BaseActivity
@@ -89,6 +91,17 @@ class MainActivity : BaseActivity(), NavController.OnDestinationChangedListener 
         if (resultCode != Activity.RESULT_OK)
             return
 
-
+        when(requestCode) {
+            ReservationEditorActivity.REQUEST_CODE_INSERT -> {
+                data?.getParcelableExtra<Reservation>(ReservationEditorActivity.EXTRA_RESERVATION)?.also {
+                    reservationViewModel.insert(it)
+                }
+            }
+            CustomerEditorActivity.REQUEST_CODE_INSERT -> {
+                data?.getParcelableExtra<Customer>(CustomerEditorActivity.EXTRA_CUSTOMER)?.also {
+                    customerViewModel.insert(it)
+                }
+            }
+        }
     }
 }

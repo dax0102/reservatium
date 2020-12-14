@@ -2,21 +2,25 @@ package me.asayah.reservatium.database.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import me.asayah.reservatium.features.room.RoomCore
+import me.asayah.reservatium.features.room.Room
 
 @Dao
 interface RoomDao {
 
     @Insert
-    suspend fun insert(roomCore: RoomCore)
+    suspend fun insert(room: Room)
 
     @Delete
-    suspend fun remove(roomCore: RoomCore)
+    suspend fun remove(room: Room)
 
     @Update
-    suspend fun update(roomCore: RoomCore)
+    suspend fun update(room: Room)
 
     @Query("SELECT * FROM rooms")
-    fun fetch(): LiveData<List<RoomCore>>
+    suspend fun fetchSuspended(): List<Room>
+
+    @Query("SELECT * FROM rooms")
+    fun fetch(): LiveData<List<Room>>
+
 
 }

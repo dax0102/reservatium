@@ -75,11 +75,21 @@
     <style name="TextAppearance.Reservatium.List.Body" parent="TextAppearance.Reservatium.Body">
         <item name="android:textColor">@color/color_secondary_text</item>
     </style>
-    <style name="TextAppearance.Reservatium.Hint" parent="TextAppearance.Reservatium">
+    <style name="TextAppearance.Reservatium.Value" parent="TextAppearance.Reservatium.Body">
         <item name="fontFamily">sans-serif-medium</item>
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+    <style name="TextAppearance.Reservatium.Hint" parent="TextAppearance.Reservatium">
+        <item name="android:letterSpacing">0.08</item>
+        <item name="android:textColor">@color/color_primary_text</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+    <style name="TextAppearance.Reservatium.Empty" parent="TextAppearance.Reservatium.Title">
+        <item name="android:textSize">20sp</item>
     </style>
 
 </resources>

@@ -3,6 +3,8 @@ package me.asayah.reservatium.database.repository
 import androidx.lifecycle.LiveData
 import me.asayah.reservatium.database.dao.ReservationDao
 import me.asayah.reservatium.features.reservation.Reservation
+import me.asayah.reservatium.features.reservation.ReservationBundle
+import me.asayah.reservatium.features.room.Room
 import javax.inject.Inject
 
 class ReservationRepository @Inject constructor(private val reservationDao: ReservationDao) {
@@ -13,6 +15,8 @@ class ReservationRepository @Inject constructor(private val reservationDao: Rese
 
     suspend fun update(reservation: Reservation) = reservationDao.update(reservation)
 
-    fun fetch(): LiveData<List<Reservation>> = reservationDao.fetch()
+    suspend fun fetchSuspended(): List<Reservation> = reservationDao.fetchSuspended()
+
+    fun fetch(): LiveData<List<ReservationBundle>> = reservationDao.fetch()
 
 }

@@ -6,7 +6,7 @@ import androidx.room.Embedded
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class CustomerBundle @JvmOverloads constructor(
+data class CustomerBundle (
         @Embedded
         var customer: Customer
 ): Parcelable {
@@ -14,7 +14,7 @@ data class CustomerBundle @JvmOverloads constructor(
     companion object {
         val DIFF_UTIL = object: DiffUtil.ItemCallback<CustomerBundle>() {
             override fun areContentsTheSame(oldItem: CustomerBundle, newItem: CustomerBundle): Boolean {
-                return oldItem.customer.id == newItem.customer.id
+                return oldItem.customer.customerId == newItem.customer.customerId
             }
 
             override fun areItemsTheSame(oldItem: CustomerBundle, newItem: CustomerBundle): Boolean {
