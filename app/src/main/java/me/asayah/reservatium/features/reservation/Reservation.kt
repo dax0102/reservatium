@@ -1,15 +1,14 @@
 package me.asayah.reservatium.features.reservation
 
-import android.content.Context
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
-import me.asayah.reservatium.components.formatting.DateTimeFormatting
+import me.asayah.reservatium.components.formatting.DateFormatting
 import me.asayah.reservatium.features.customer.Customer
 import me.asayah.reservatium.features.room.Room
-import java.time.LocalDateTime
+import java.time.LocalDate
 import java.util.*
 
 @Parcelize
@@ -21,22 +20,23 @@ import java.util.*
 ])
 data class Reservation @JvmOverloads constructor(
         @PrimaryKey
-    var reservationId: String = UUID.randomUUID().toString(),
+        var reservationId: String = UUID.randomUUID().toString(),
         var room: String? = null,
         var customer: String? = null,
-        var startDate: LocalDateTime? = null,
-        var endDate: LocalDateTime? = null,
+        var startDate: LocalDate? = null,
+        var endDate: LocalDate? = null,
         var numberOfGuests: Int = 0,
 ): Parcelable {
 
-    fun format(context: Context): String {
+    fun format(): String {
+        val currentYear = LocalDate.now().year
         return StringBuilder().apply {
-            append(startDate?.format(DateTimeFormatting.getDateTimeFormatter(context)))
+            append(startDate?.format(DateFormatting.getFormatter(currentYear == startDate?.year)))
             if (endDate != null) {
-                append(" => ")
-                append(endDate?.format(DateTimeFormatting.getDateTimeFormatter(context)))
+                append(" - ")
+                append(endDate
+                        ?.format(DateFormatting.getFormatter(currentYear == endDate?.year)))
             }
         }.toString()
-
     }
 }

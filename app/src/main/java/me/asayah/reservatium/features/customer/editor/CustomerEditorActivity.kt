@@ -17,7 +17,7 @@ class CustomerEditorActivity: BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = EditorCustomerBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setupTopAppBar(binding.appbarLayout.toolbar)
+        setupTopAppBar(binding.toolbar)
         setToolbarTitle(R.string.editor_new_customer)
 
         if (intent.hasExtra(EXTRA_CUSTOMER)) {

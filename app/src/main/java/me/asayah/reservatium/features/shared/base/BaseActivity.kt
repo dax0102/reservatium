@@ -1,7 +1,7 @@
 package me.asayah.reservatium.features.shared.base
 
 import android.view.View
-import androidx.annotation.IdRes
+import android.widget.Toolbar
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.appbar.MaterialToolbar

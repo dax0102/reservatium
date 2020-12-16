@@ -12,23 +12,24 @@ import me.asayah.reservatium.database.repository.RoomRepository
 import me.asayah.reservatium.features.customer.Customer
 import me.asayah.reservatium.features.reservation.Reservation
 import me.asayah.reservatium.features.room.Room
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 class ReservationEditorViewModel @ViewModelInject constructor(
     private val reservationRepository: ReservationRepository
 ): ViewModel() {
 
-    private var _status = MutableLiveData(ReservationStatus.CONFLICT_NONE)
-    internal val status: LiveData<ReservationStatus> = _status
-
     var room: Room? = null
         set(value) {
             field = value
+            _roomLive.value = value
+            _roomLive.value = _roomLive.value
             checkReservation()
         }
     var customer: Customer? = null
         set(value) {
             field = value
+            _customerLive.value = value
             checkReservation()
         }
     var reservation = Reservation()
@@ -37,33 +38,59 @@ class ReservationEditorViewModel @ViewModelInject constructor(
             field.customer = customer?.customerId
             field.startDate = startDate
             field.endDate = endDate
+            field.numberOfGuests = numberOfGuests
             return field
         }
-    var startDate: LocalDateTime = LocalDateTime.now()
+    var startDate: LocalDate? = null
         set(value) {
             field = value
+            _startDateLive.value = value
             checkReservation()
         }
-    var endDate: LocalDateTime? = null
+    var endDate: LocalDate? = null
         set(value) {
             field = value
+            _endDateLive.value = value
             checkReservation()
         }
+    var numberOfGuests: Int = 1
+
+    private var _status = MutableLiveData(ReservationStatus.CONFLICT_NONE)
+    internal val status: LiveData<ReservationStatus> = _status
+
+    private val _roomLive = MutableLiveData(room)
+    internal val roomLive: LiveData<Room?> = _roomLive
+
+    private val _customerLive = MutableLiveData(customer)
+    internal val customerLive: LiveData<Customer?> = _customerLive
+
+    private val _startDateLive = MutableLiveData(startDate)
+    internal val startDateLive: LiveData<LocalDate?> = _startDateLive
+
+    private val _endDateLive = MutableLiveData(endDate)
+    internal val endDateLive: LiveData<LocalDate?> = _endDateLive
+
+    fun reset() {
+        _status.value = ReservationStatus.CONFLICT_NONE
+    }
 
     private fun checkReservation() = viewModelScope.launch {
         val reservations = reservationRepository.fetchSuspended()
         reservations.forEach {
 
-            val reservedStartDate = it.startDate?.toLocalDate()
-            val reservedEndDate = it.startDate?.toLocalDate()
-            val chosenDate = startDate.toLocalDate()
+            val reservedStartDate = it.startDate
+            val reservedEndDate = it.startDate
+            val chosenDate = startDate
 
-            if (chosenDate.isAfter(reservedStartDate) || chosenDate.isBefore(reservedEndDate)) {
-                if (it.room == room?.roomId)
-                    _status.value = ReservationStatus.CONFLICT_DATE_ROOM
-                else if (it.customer == customer?.customerId)
-                    _status.value = ReservationStatus.CONFLICT_DATE_CUSTOMER
-                else _status.value = ReservationStatus.CONFLICT_NONE
+            if (chosenDate?.isAfter(reservedStartDate) == true
+                    || chosenDate?.isBefore(reservedEndDate) == true) {
+                when {
+                    it.room == room?.roomId ->
+                        _status.value = ReservationStatus.CONFLICT_DATE_ROOM
+                    it.customer == customer?.customerId ->
+                        _status.value = ReservationStatus.CONFLICT_DATE_CUSTOMER
+                    else -> _status.value = ReservationStatus.CONFLICT_NONE
+                }
             } else _status.value = ReservationStatus.CONFLICT_NONE
         }
     }

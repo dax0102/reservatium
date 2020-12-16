@@ -5,57 +5,60 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include android:id="@+id/appbarLayout"
-        layout="@layout/layout_appbar_editor"/>
-
-    <ScrollView
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_height="wrap_content">
 
-        <LinearLayout
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/activity_padding"
-            android:orientation="vertical">
+            android:elevation="0dp"/>
 
-            <TextView
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/activity_padding"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/view_spacing"
+            android:text="@string/input_customer_info"
+            android:textAppearance="@style/TextAppearance.Reservatium.Hint"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/view_spacing"
+            android:hint="@string/input_first_name"
+            style="@style/Widget.Reservatium.TextInput.Layout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/firstNameTextInput"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/view_spacing"
-                android:text="@string/input_customer_info"
-                android:textAppearance="@style/TextAppearance.Reservatium.Hint"/>
+                android:layout_height="wrap_content"/>
 
-            <com.google.android.material.textfield.TextInputLayout
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/input_last_name"
+            style="@style/Widget.Reservatium.TextInput.Layout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/lastNameTextInput"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/view_spacing"
-                android:hint="@string/input_first_name"
-                style="@style/Widget.Reservatium.TextInput.Layout">
+                android:layout_height="wrap_content"/>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/firstNameTextInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/input_last_name"
-                style="@style/Widget.Reservatium.TextInput.Layout">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/lastNameTextInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-        </LinearLayout>
-
-    </ScrollView>
+    </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/actionButton"

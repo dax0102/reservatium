@@ -7,7 +7,6 @@
         <item name="colorPrimaryVariant">@color/color_primary_variant</item>
         <item name="colorOnPrimary">@color/color_on_primary</item>
         <item name="colorSecondary">@color/color_secondary</item>
-        <item name="colorSecondaryVariant">@color/color_secondary_variant</item>
         <item name="colorOnSecondary">@color/color_on_secondary</item>
         <item name="colorSurface">@color/color_surface</item>
         <item name="colorOnSurface">@color/color_on_surface</item>
@@ -18,16 +17,19 @@
         <item name="toolbarStyle">@style/Widget.Reservatium.Toolbar</item>
         <item name="toolbarNavigationButtonStyle">@style/Widget.Reservatium.Toolbar.Navigation</item>
         <item name="actionOverflowButtonStyle">@style/Widget.Reservatium.Toolbar.Overflow</item>
+
+        <item name="md_color_title">@color/color_primary_text</item>
+        <item name="md_color_content">@color/color_secondary_text</item>
+        <item name="md_color_button_text">@color/color_primary_text</item>
     </style>
 
     <!-- Widgets -->
     <style name="Widget.Reservatium.AppBar" parent="Widget.MaterialComponents.AppBarLayout.Primary"/>
-    <style name="Widget.Reservatium.Toolbar" parent="Widget.MaterialComponents.Toolbar">
-        <item name="titleTextColor">@color/color_on_primary</item>
+    <style name="Widget.Reservatium.Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
         <item name="titleTextAppearance">@style/TextAppearance.Reservatium.Title</item>
         <item name="contentInsetStart">@dimen/toolbar_keyline</item>
         <item name="maxButtonHeight">48dp</item>
-        <item name="android:background">@color/color_toolbar_background</item>
+        <item name="backgroundTint">@color/color_toolbar_background</item>
         <item name="android:paddingLeft">@dimen/toolbar_padding_horizontal</item>
         <item name="android:paddingRight">@dimen/toolbar_padding_horizontal</item>
     </style>
@@ -40,14 +42,15 @@
         <item name="android:paddingStart">0dp</item>
         <item name="android:paddingEnd">0dp</item>
     </style>
-    <style name="Widget.Reservatium.Navigation" parent="ExpandableBottomBar">
+    <style name="Widget.Reservatium.BottomBar" parent="ExpandableBottomBar">
         <item name="exb_backgroundColor">?attr/colorPrimary</item>
         <item name="exb_itemBackgroundCornerRadius">32dp</item>
-        <item name="exb_itemInactiveColor">?attr/colorControlNormal</item>
+        <item name="exb_itemInactiveColor">@color/reservatium_rausch_800</item>
         <item name="exb_transitionDuration">50</item>
         <item name="layout_behavior">github.com.st235.lib_expandablebottombar.behavior.ExpandableBottomBarScrollableBehavior</item>
     </style>
-    <style name="Widget.Reservatium.TextInput.Layout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+    <style name="Widget.Reservatium.TextInput.Layout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"/>
+    <style name="Widget.Reservatium.NumberStepper" parent="NumberStepper">
 
     </style>
 
@@ -57,7 +60,6 @@
         <item name="fontFamily">sans-serif-medium</item>
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textSize">20sp</item>
-        <item name="android:textColor">@color/color_on_primary</item>
     </style>
     <style name="TextAppearance.Reservatium.Body" parent="TextAppearance.Reservatium">
         <item name="android:textColor">@color/color_primary_text</item>
@@ -76,10 +78,9 @@
         <item name="android:textColor">@color/color_secondary_text</item>
     </style>
     <style name="TextAppearance.Reservatium.Value" parent="TextAppearance.Reservatium.Body">
-        <item name="fontFamily">sans-serif-medium</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColor">@color/reservatium_rausch_500</item>
     </style>
     <style name="TextAppearance.Reservatium.Hint" parent="TextAppearance.Reservatium">
         <item name="android:letterSpacing">0.08</item>

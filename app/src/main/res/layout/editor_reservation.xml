@@ -5,136 +5,153 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include android:id="@+id/appbarLayout"
-        layout="@layout/layout_appbar_editor"/>
-
-    <ScrollView
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="0dp"/>
+
+        <FrameLayout
+            android:id="@+id/customerTextViewContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/view_spacing"
+            android:background="@drawable/shape_editor_container_primary"
+            android:foreground="?attr/selectableItemBackground">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/view_spacing"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="@dimen/view_spacing"
+                    app:srcCompat="@drawable/ic_outline_person_24"
+                    app:tint="@color/reservatium_rausch_50"/>
+
+                <TextView
+                    android:id="@+id/customerTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/view_spacing"
+                    android:text="@string/input_not_set"
+                    android:textColor="@color/reservatium_rausch_50"
+                    android:textAppearance="@style/TextAppearance.Reservatium.Value"/>
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_padding"
+        android:layout_marginBottom="@dimen/activity_padding"
+        android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/activity_padding"
-            android:orientation="vertical">
+            android:layout_marginStart="@dimen/view_spacing"
+            android:layout_marginEnd="@dimen/view_spacing"
+            android:layout_marginBottom="@dimen/view_spacing"
+            android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="match_parent"
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/input_room"
-                android:textAppearance="@style/TextAppearance.Reservatium.Hint"/>
+                android:layout_marginStart="@dimen/view_spacing"
+                android:layout_marginEnd="@dimen/view_spacing"
+                android:layout_gravity="center"
+                android:padding="@dimen/view_spacing"
+                app:srcCompat="@drawable/ic_outline_hotel_24"
+                app:tint="@color/reservatium_rausch_600" />
 
             <TextView
                 android:id="@+id/roomTextView"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/view_spacing"
-                android:paddingVertical="@dimen/view_spacing"
-                android:focusable="true"
-                android:clickable="true"
+                android:layout_weight="1"
+                android:padding="@dimen/activity_padding"
+                android:background="@drawable/shape_editor_container"
                 android:text="@string/input_not_set"
-                android:textAppearance="@style/TextAppearance.Reservatium.Value"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="@dimen/view_spacing"
-                android:layout_marginBottom="@dimen/view_spacing"
-                android:background="?attr/colorPrimary"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/input_customer"
-                android:textAppearance="@style/TextAppearance.Reservatium.Hint"/>
-
-            <TextView
-                android:id="@+id/customerTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/view_spacing"
-                android:paddingVertical="@dimen/view_spacing"
-                android:focusable="true"
-                android:clickable="true"
-                android:text="@string/input_not_set"
-                android:textAppearance="@style/TextAppearance.Reservatium.Value"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="@dimen/view_spacing"
-                android:layout_marginBottom="@dimen/view_spacing"
-                android:background="?attr/colorPrimary"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/input_start_date"
-                android:textAppearance="@style/TextAppearance.Reservatium.Hint"/>
-
-            <TextView
-                android:id="@+id/startDateTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/view_spacing"
-                android:paddingVertical="@dimen/view_spacing"
-                android:focusable="true"
-                android:clickable="true"
-                android:text="@string/input_not_set"
-                android:textAppearance="@style/TextAppearance.Reservatium.Value"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/view_spacing"
-                android:text="@string/input_end_date"
-                android:textAppearance="@style/TextAppearance.Reservatium.Hint"/>
-
-            <TextView
-                android:id="@+id/endDateTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/view_spacing"
-                android:paddingVertical="@dimen/view_spacing"
-                android:focusable="true"
-                android:clickable="true"
-                android:text="@string/input_not_set"
-                android:textAppearance="@style/TextAppearance.Reservatium.Value"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="@dimen/view_spacing"
-                android:layout_marginBottom="@dimen/view_spacing"
-                android:background="?attr/colorPrimary"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/view_spacing"
-                android:text="@string/input_number_of_guests"
-                android:textAppearance="@style/TextAppearance.Reservatium.Hint"/>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/Widget.Reservatium.TextInput.Layout">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/numberOfGuestsTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:digits="1"
-                    android:text="1"
-                    android:textAppearance="@style/TextAppearance.Reservatium.Value"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
+                android:textAppearance="@style/TextAppearance.Reservatium.Value" />
 
         </LinearLayout>
 
-    </ScrollView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/view_spacing"
+            android:layout_marginBottom="@dimen/view_spacing"
+            android:layout_marginStart="@dimen/view_spacing"
+            android:layout_marginEnd="@dimen/view_spacing"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/view_spacing"
+                android:layout_marginEnd="@dimen/view_spacing"
+                android:layout_gravity="center"
+                android:padding="@dimen/view_spacing"
+                app:srcCompat="@drawable/ic_outline_date_range_24"
+                app:tint="@color/reservatium_rausch_600" />
+
+            <TextView
+                android:id="@+id/dateTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="@dimen/activity_padding"
+                android:background="@drawable/shape_editor_container"
+                android:text="@string/input_not_set"
+                android:textAppearance="@style/TextAppearance.Reservatium.Value" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/view_spacing"
+            android:layout_marginStart="@dimen/view_spacing"
+            android:layout_marginEnd="@dimen/view_spacing"
+            android:orientation="horizontal"
+            android:padding="@dimen/view_spacing">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="@dimen/view_spacing"
+                app:srcCompat="@drawable/ic_outline_family_restroom_24"
+                app:tint="@color/reservatium_rausch_600" />
+
+            <ezy.ui.view.NumberStepper
+                android:id="@+id/numberStepper"
+                style="@style/NumberStepper"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/view_spacing"
+                app:nsMaxValue="10"
+                app:nsMinValue="1"
+                app:nsStep="1"
+                app:nsValue="1" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/actionButton"
