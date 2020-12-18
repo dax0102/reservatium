@@ -7,7 +7,7 @@ import me.asayah.reservatium.features.customer.Customer
 @Dao
 interface CustomerDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(customer: Customer)
 
     @Delete

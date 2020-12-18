@@ -59,7 +59,9 @@ class CustomerFragment: BaseFragment(), BaseAdapter.ActionListener {
         if (t is Customer) {
             when(action) {
                 BaseAdapter.ActionListener.Action.SELECT -> {
-                    viewModel.insert(t)
+                    startActivityForResult(Intent(context, CustomerEditorActivity::class.java).apply {
+                        putExtra(CustomerEditorActivity.EXTRA_CUSTOMER, t)
+                    }, CustomerEditorActivity.REQUEST_CODE_INSERT)
                 }
                 BaseAdapter.ActionListener.Action.DELETE -> {
                     viewModel.remove(t)

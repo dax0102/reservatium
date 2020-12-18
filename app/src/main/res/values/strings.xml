@@ -14,6 +14,7 @@
 
     <string name="menu_add">Add</string>
 
+    <string name="input_reservations">Reservations</string>
     <string name="input_room">Room</string>
     <string name="input_customer">Customer</string>
     <string name="input_start_date">Start Date</string>
@@ -52,5 +53,7 @@
     <string name="error_reservation_conflict_room_message">The selected room is currently being occupied at the selected date. Choose another date or another room to continue.</string>
     <string name="error_reservation_conflict_customer_title">Customer conflict in the Reservation</string>
     <string name="error_reservation_conflict_customer_message">The selected customer is currently booked in another room at the selected date. Choose another date or another customer to continue.</string>
+    <string name="error_customer_no_first_name">You forgot to enter the customer\'s first name</string>
+    <string name="error_customer_no_last_name">You forgot to enter the customer\'s last name</string>
 
 </resources>

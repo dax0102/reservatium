@@ -7,7 +7,7 @@ import me.asayah.reservatium.features.room.Room
 @Dao
 interface RoomDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(room: Room)
 
     @Delete

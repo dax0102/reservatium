@@ -19,4 +19,7 @@ class ReservationRepository @Inject constructor(private val reservationDao: Rese
 
     fun fetch(): LiveData<List<ReservationBundle>> = reservationDao.fetch()
 
+    suspend fun fetchWithCustomer(id: String?): List<ReservationBundle>
+        = reservationDao.fetchWithCustomer(id)
+
 }

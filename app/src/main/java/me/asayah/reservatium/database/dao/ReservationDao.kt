@@ -8,7 +8,7 @@ import me.asayah.reservatium.features.reservation.ReservationBundle
 @Dao
 interface ReservationDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(reservation: Reservation)
 
     @Delete
@@ -22,5 +22,8 @@ interface ReservationDao {
 
     @Query("SELECT * FROM reservations INNER JOIN customers ON customers.customerId == reservations.customer INNER JOIN rooms ON rooms.roomId == reservations.room")
     fun fetch(): LiveData<List<ReservationBundle>>
+
+    @Query("SELECT * FROM reservations INNER JOIN customers ON customers.customerId == reservations.customer INNER JOIN rooms ON rooms.roomId == reservations.room WHERE customer = :id")
+    suspend fun fetchWithCustomer(id: String?): List<ReservationBundle>
 
 }

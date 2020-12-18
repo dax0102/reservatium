@@ -43,14 +43,14 @@ class ReservationEditorActivity: BaseActivity() {
             setToolbarTitle(R.string.editor_edit_reservation)
 
             intent.getParcelableExtra<Reservation>(EXTRA_RESERVATION)?.also {
-                viewModel.reservation
+                viewModel.reservation = it
                 viewModel.date = DateRange(it.startDate, it.endDate)
             }
             intent.getParcelableExtra<Customer>(EXTRA_CUSTOMER)?.also {
-                viewModel.customer
+                viewModel.customer = it
             }
             intent.getParcelableExtra<Room>(EXTRA_ROOM)?.also {
-                viewModel.room
+                viewModel.room = it
             }
         }
     }
