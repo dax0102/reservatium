@@ -3,11 +3,12 @@ package me.asayah.reservatium.features.customer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import me.asayah.reservatium.components.interfaces.Swipeable
 import me.asayah.reservatium.databinding.LayoutItemCustomerBinding
 import me.asayah.reservatium.features.shared.base.BaseAdapter
 
 class CustomerAdapter(private val actionListener: ActionListener)
-    : BaseAdapter<Customer, CustomerAdapter.CustomerViewHolder>(Customer.CALLBACK) {
+    : BaseAdapter<Customer, CustomerAdapter.CustomerViewHolder>(Customer.CALLBACK), Swipeable {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomerViewHolder {
         val binding = LayoutItemCustomerBinding.inflate(LayoutInflater.from(parent.context),
@@ -17,6 +18,10 @@ class CustomerAdapter(private val actionListener: ActionListener)
 
     override fun onBindViewHolder(holder: CustomerViewHolder, position: Int) {
         holder.onBind(getItem(position))
+    }
+
+    override fun onItemSwipe(position: Int, direction: Int) {
+        actionListener.onActionPerformed(getItem(position), ActionListener.Action.DELETE)
     }
 
     class CustomerViewHolder(itemView: View, private val actionListener: ActionListener)

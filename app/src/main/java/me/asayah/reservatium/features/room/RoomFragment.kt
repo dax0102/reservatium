@@ -9,8 +9,11 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import dagger.hilt.android.AndroidEntryPoint
 import me.asayah.reservatium.R
+import me.asayah.reservatium.components.custom.ItemDecoration
+import me.asayah.reservatium.components.custom.ItemSwipeCallback
 import me.asayah.reservatium.databinding.FragmentRoomBinding
 import me.asayah.reservatium.features.shared.base.BaseAdapter
 import me.asayah.reservatium.features.shared.base.BaseFragment
@@ -34,8 +37,13 @@ class RoomFragment: BaseFragment(), BaseAdapter.ActionListener {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding.recyclerView) {
+            addItemDecoration(ItemDecoration(context))
             adapter = roomAdapter
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
 
         viewModel.rooms.observe(viewLifecycleOwner) { roomAdapter.submitList(it) }
     }

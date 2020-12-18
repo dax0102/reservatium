@@ -8,7 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.ItemTouchHelper
 import dagger.hilt.android.AndroidEntryPoint
+import me.asayah.reservatium.components.custom.ItemDecoration
+import me.asayah.reservatium.components.custom.ItemSwipeCallback
 import me.asayah.reservatium.databinding.FragmentCustomerBinding
 import me.asayah.reservatium.features.customer.editor.CustomerEditorActivity
 import me.asayah.reservatium.features.shared.base.BaseAdapter
@@ -32,7 +35,12 @@ class CustomerFragment: BaseFragment(), BaseAdapter.ActionListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.recyclerView.adapter = customerAdapter
+        with(binding.recyclerView) {
+            ItemTouchHelper(ItemSwipeCallback(context, customerAdapter))
+                    .attachToRecyclerView(this)
+            addItemDecoration(ItemDecoration(context))
+            adapter = customerAdapter
+        }
     }
 
     override fun onStart() {

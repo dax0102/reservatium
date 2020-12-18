@@ -35,7 +35,7 @@
                     android:layout_gravity="center"
                     android:padding="@dimen/view_spacing"
                     app:srcCompat="@drawable/ic_outline_person_24"
-                    app:tint="@color/reservatium_rausch_50"/>
+                    app:tint="@color/reservatium_pink_900"/>
 
                 <TextView
                     android:id="@+id/customerTextView"
@@ -43,7 +43,7 @@
                     android:layout_height="wrap_content"
                     android:padding="@dimen/view_spacing"
                     android:text="@string/input_not_set"
-                    android:textColor="@color/reservatium_rausch_50"
+                    android:textColor="@color/reservatium_pink_900"
                     android:textAppearance="@style/TextAppearance.Reservatium.Value"/>
 
             </LinearLayout>
@@ -76,17 +76,24 @@
                 android:layout_gravity="center"
                 android:padding="@dimen/view_spacing"
                 app:srcCompat="@drawable/ic_outline_hotel_24"
-                app:tint="@color/reservatium_rausch_600" />
+                app:tint="@color/reservatium_pink_900" />
 
-            <TextView
-                android:id="@+id/roomTextView"
+            <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:padding="@dimen/activity_padding"
-                android:background="@drawable/shape_editor_container"
-                android:text="@string/input_not_set"
-                android:textAppearance="@style/TextAppearance.Reservatium.Value" />
+                android:foreground="?attr/selectableItemBackground"
+                android:background="@drawable/shape_editor_container">
+
+                <TextView
+                    android:id="@+id/roomTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/activity_padding"
+                    android:text="@string/input_not_set"
+                    android:textAppearance="@style/TextAppearance.Reservatium.Value" />
+
+            </FrameLayout>
 
         </LinearLayout>
 
@@ -107,18 +114,24 @@
                 android:layout_gravity="center"
                 android:padding="@dimen/view_spacing"
                 app:srcCompat="@drawable/ic_outline_date_range_24"
-                app:tint="@color/reservatium_rausch_600" />
+                app:tint="@color/reservatium_pink_900" />
 
-            <TextView
-                android:id="@+id/dateTextView"
+            <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="@dimen/activity_padding"
-                android:background="@drawable/shape_editor_container"
-                android:text="@string/input_not_set"
-                android:textAppearance="@style/TextAppearance.Reservatium.Value" />
+                android:layout_weight="1">
 
+                <TextView
+                    android:id="@+id/dateTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/activity_padding"
+                    android:background="@drawable/shape_editor_container"
+                    android:text="@string/input_not_set"
+                    android:textAppearance="@style/TextAppearance.Reservatium.Value" />
+
+
+            </FrameLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -136,7 +149,7 @@
                 android:layout_gravity="center"
                 android:padding="@dimen/view_spacing"
                 app:srcCompat="@drawable/ic_outline_family_restroom_24"
-                app:tint="@color/reservatium_rausch_600" />
+                app:tint="@color/reservatium_pink_900" />
 
             <ezy.ui.view.NumberStepper
                 android:id="@+id/numberStepper"

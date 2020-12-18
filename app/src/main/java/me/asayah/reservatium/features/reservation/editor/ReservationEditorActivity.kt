@@ -5,10 +5,12 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import dagger.hilt.android.AndroidEntryPoint
 import me.asayah.reservatium.R
 import me.asayah.reservatium.components.formatting.DateFormatting
 import me.asayah.reservatium.databinding.EditorReservationBinding
+import me.asayah.reservatium.features.core.DateRange
 import me.asayah.reservatium.features.customer.Customer
 import me.asayah.reservatium.features.customer.chooser.CustomerChooserActivity
 import me.asayah.reservatium.features.reservation.Reservation
@@ -42,8 +44,7 @@ class ReservationEditorActivity: BaseActivity() {
 
             intent.getParcelableExtra<Reservation>(EXTRA_RESERVATION)?.also {
                 viewModel.reservation
-                viewModel.startDate = it.startDate!!
-                viewModel.endDate = it.endDate
+                viewModel.date = DateRange(it.startDate, it.endDate)
             }
             intent.getParcelableExtra<Customer>(EXTRA_CUSTOMER)?.also {
                 viewModel.customer
@@ -63,35 +64,22 @@ class ReservationEditorActivity: BaseActivity() {
         viewModel.customerLive.observe(this) {
             binding.customerTextView.text = it?.getName() ?: getString(R.string.input_not_set)
         }
-        viewModel.startDateLive.observe(this) { startDate ->
-            if (startDate != null) {
+        viewModel.dateLive.observe(this) { date ->
+            if (date?.startDate != null) {
                 binding.dateTextView.text = StringBuilder().apply {
-                    append(startDate.format(DateFormatting.getFormatter(startDate.year != currentYear)))
-                    viewModel.endDate?.also {
+                    append(date.startDate?.format(DateFormatting.getFormatter(date.startDate?.year != currentYear)))
+                    date.endDate?.also {
                         append(" - ")
                         append(it.format(DateFormatting.getFormatter(it.year != currentYear)))
                     }
                 }
             } else binding.dateTextView.setText(R.string.input_not_set)
         }
-        viewModel.endDateLive.observe(this) { endDate ->
-            if (viewModel.startDate != null) {
-                binding.dateTextView.text = StringBuilder().apply {
-                    viewModel.startDate?.also {
-                        append(it.format(DateFormatting.getFormatter(it.year != currentYear)))
-                    }
-                    endDate?.also {
-                        append(" - ")
-                        append(it.format(DateFormatting.getFormatter(it.year != currentYear)))
-                    }
-                }
-            } else binding.dateTextView.setText(R.string.input_not_set)
-        }
-
         viewModel.status.observe(this) {
             when(it) {
                 ReservationEditorViewModel.ReservationStatus.CONFLICT_DATE_ROOM -> {
                     MaterialDialog(this).show {
+                        lifecycleOwner(this@ReservationEditorActivity)
                         cancelable(false)
                         title(R.string.error_reservation_conflict_room_title)
                         message(R.string.error_reservation_conflict_room_message)
@@ -107,6 +95,7 @@ class ReservationEditorActivity: BaseActivity() {
                 }
                 ReservationEditorViewModel.ReservationStatus.CONFLICT_DATE_CUSTOMER -> {
                     MaterialDialog(this).show {
+                        lifecycleOwner(this@ReservationEditorActivity)
                         cancelable(false)
                         title(R.string.error_reservation_conflict_customer_title)
                         message(R.string.error_reservation_conflict_customer_message)
@@ -145,11 +134,43 @@ class ReservationEditorActivity: BaseActivity() {
         }
 
         binding.actionButton.setOnClickListener {
-            if (viewModel.room == null)
-                return@setOnClickListener
+            val reservation = viewModel.reservation
 
-            if (viewModel.customer == null)
+            if (reservation.startDate == null) {
+                MaterialDialog(this).show {
+                    lifecycleOwner(this@ReservationEditorActivity)
+                    title(R.string.error_reservation_empty_date)
+                    cancelable(false)
+                    positiveButton {
+                        binding.dateTextView.performClick()
+                    }
+                }
                 return@setOnClickListener
+            }
+
+            if (reservation.room == null) {
+                MaterialDialog(this).show {
+                    lifecycleOwner(this@ReservationEditorActivity)
+                    title(R.string.error_reservation_empty_room)
+                    cancelable(false)
+                    positiveButton {
+                        binding.roomTextView.performClick()
+                    }
+                }
+                return@setOnClickListener
+            }
+
+            if (reservation.customer == null) {
+                MaterialDialog(this).show {
+                    lifecycleOwner(this@ReservationEditorActivity)
+                    title(R.string.error_reservation_empty_customer)
+                    cancelable(false)
+                    positiveButton(R.string.button_continue) {
+                        binding.customerTextViewContainer.performClick()
+                    }
+                }
+                return@setOnClickListener
+            }
 
             setResult(RESULT_OK, Intent().apply {
                 putExtra(EXTRA_RESERVATION, viewModel.reservation)
@@ -168,16 +189,20 @@ class ReservationEditorActivity: BaseActivity() {
             CustomerChooserActivity.REQUEST_CODE_CHOOSE -> {
                 data?.getParcelableExtra<Customer>(CustomerChooserActivity.EXTRA_CUSTOMER)?.also {
                     viewModel.customer = it
+                    createSnackbar(binding.root, R.string.feedback_customer_updated)
                 }
             }
             RoomChooserActivity.REQUEST_CODE_CHOOSE -> {
                 data?.getParcelableExtra<Room>(RoomChooserActivity.EXTRA_ROOM)?.also {
                     viewModel.room = it
+                    createSnackbar(binding.root, R.string.feedback_room_updated)
                 }
             }
             DateRangeChooserActivity.REQUEST_CODE_CHOOSE -> {
-                viewModel.startDate = data?.getParcelableExtra(DateRangeChooserActivity.EXTRA_START_DATE)
-                viewModel.endDate = data?.getParcelableExtra(DateRangeChooserActivity.EXTRA_END_DATE)
+                data?.getParcelableExtra<DateRange>(DateRangeChooserActivity.EXTRA_DATE_RANGE)?.also {
+                    viewModel.date = it
+                    createSnackbar(binding.root, R.string.feedback_date_updated)
+                }
             }
         }
     }

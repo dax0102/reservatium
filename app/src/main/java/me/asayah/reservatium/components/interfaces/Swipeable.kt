@@ -1,4 +1,4 @@
-package me.asayah.reservatium.components.`interface`
+package me.asayah.reservatium.components.interfaces
 
 interface Swipeable {
 

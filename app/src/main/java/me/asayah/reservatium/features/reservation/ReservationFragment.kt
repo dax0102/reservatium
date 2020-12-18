@@ -8,8 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.ItemTouchHelper
 import dagger.hilt.android.AndroidEntryPoint
+import me.asayah.reservatium.R
 import me.asayah.reservatium.components.custom.ItemDecoration
+import me.asayah.reservatium.components.custom.ItemSwipeCallback
 import me.asayah.reservatium.databinding.FragmentReservationBinding
 import me.asayah.reservatium.features.reservation.editor.ReservationEditorActivity
 import me.asayah.reservatium.features.shared.base.BaseAdapter
@@ -34,6 +37,8 @@ class ReservationFragment: BaseFragment(), BaseAdapter.ActionListener {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding.recyclerView) {
+            ItemTouchHelper(ItemSwipeCallback(context, reservationAdapter))
+                    .attachToRecyclerView(this)
             addItemDecoration(ItemDecoration(context))
             adapter = reservationAdapter
         }
@@ -54,7 +59,10 @@ class ReservationFragment: BaseFragment(), BaseAdapter.ActionListener {
 
         when(requestCode) {
             ReservationEditorActivity.REQUEST_CODE_UPDATE -> {
-
+                data?.getParcelableExtra<Reservation>(ReservationEditorActivity.EXTRA_RESERVATION)?.also {
+                    viewModel.update(it)
+                    createSnackbar(binding.root, R.string.feedback_reservation_updated)
+                }
             }
         }
     }
@@ -71,7 +79,10 @@ class ReservationFragment: BaseFragment(), BaseAdapter.ActionListener {
                     startActivityForResult(editorIntent,
                             ReservationEditorActivity.REQUEST_CODE_UPDATE)
                 }
-                BaseAdapter.ActionListener.Action.DELETE -> TODO()
+                BaseAdapter.ActionListener.Action.DELETE -> {
+                    viewModel.remove(t.reservation)
+                    createSnackbar(binding.root, R.string.feedback_reservation_removed)
+                }
             }
         }
     }

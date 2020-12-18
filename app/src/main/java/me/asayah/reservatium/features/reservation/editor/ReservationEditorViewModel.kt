@@ -9,6 +9,7 @@ import kotlinx.coroutines.launch
 import me.asayah.reservatium.database.repository.CustomerRepository
 import me.asayah.reservatium.database.repository.ReservationRepository
 import me.asayah.reservatium.database.repository.RoomRepository
+import me.asayah.reservatium.features.core.DateRange
 import me.asayah.reservatium.features.customer.Customer
 import me.asayah.reservatium.features.reservation.Reservation
 import me.asayah.reservatium.features.room.Room
@@ -36,21 +37,15 @@ class ReservationEditorViewModel @ViewModelInject constructor(
         get() {
             field.room = room?.roomId
             field.customer = customer?.customerId
-            field.startDate = startDate
-            field.endDate = endDate
+            field.startDate = date?.startDate
+            field.endDate = date?.endDate
             field.numberOfGuests = numberOfGuests
             return field
         }
-    var startDate: LocalDate? = null
+    var date: DateRange? = null
         set(value) {
             field = value
-            _startDateLive.value = value
-            checkReservation()
-        }
-    var endDate: LocalDate? = null
-        set(value) {
-            field = value
-            _endDateLive.value = value
+            _dateLive.value = value
             checkReservation()
         }
     var numberOfGuests: Int = 1
@@ -64,11 +59,8 @@ class ReservationEditorViewModel @ViewModelInject constructor(
     private val _customerLive = MutableLiveData(customer)
     internal val customerLive: LiveData<Customer?> = _customerLive
 
-    private val _startDateLive = MutableLiveData(startDate)
-    internal val startDateLive: LiveData<LocalDate?> = _startDateLive
-
-    private val _endDateLive = MutableLiveData(endDate)
-    internal val endDateLive: LiveData<LocalDate?> = _endDateLive
+    private val _dateLive = MutableLiveData(date)
+    internal val dateLive: LiveData<DateRange?> = _dateLive
 
     fun reset() {
         _status.value = ReservationStatus.CONFLICT_NONE
@@ -80,7 +72,7 @@ class ReservationEditorViewModel @ViewModelInject constructor(
 
             val reservedStartDate = it.startDate
             val reservedEndDate = it.startDate
-            val chosenDate = startDate
+            val chosenDate = date?.startDate
 
             if (chosenDate?.isAfter(reservedStartDate) == true
                     || chosenDate?.isBefore(reservedEndDate) == true) {

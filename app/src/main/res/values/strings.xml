@@ -25,6 +25,7 @@
     <string name="input_not_set">Not Set</string>
 
     <string name="button_save">Save</string>
+    <string name="button_continue">Continue</string>
     <string name="button_reschedule">Reschedule</string>
     <string name="button_change_room">Change room</string>
     <string name="button_change_customer">Change customer</string>
@@ -37,9 +38,16 @@
 
     <string name="feedback_reservation_inserted">Reservation added</string>
     <string name="feedback_reservation_removed">Reservation removed</string>
+    <string name="feedback_reservation_updated">Reservation updated</string>
     <string name="feedback_customer_inserted">Customer added</string>
     <string name="feedback_customer_removed">Customer removed</string>
+    <string name="feedback_customer_updated">Customer updated</string>
+    <string name="feedback_room_updated">Room updated</string>
+    <string name="feedback_date_updated">Date updated</string>
 
+    <string name="error_reservation_empty_room">No room were specified</string>
+    <string name="error_reservation_empty_customer">No customer were specified</string>
+    <string name="error_reservation_empty_date">No date were specified</string>
     <string name="error_reservation_conflict_room_title">Room conflict in the Reservation</string>
     <string name="error_reservation_conflict_room_message">The selected room is currently being occupied at the selected date. Choose another date or another room to continue.</string>
     <string name="error_reservation_conflict_customer_title">Customer conflict in the Reservation</string>

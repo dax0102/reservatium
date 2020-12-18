@@ -19,4 +19,12 @@ class ReservationViewModel @ViewModelInject constructor(
         reservationRepository.insert(reservation)
     }
 
+    fun update(reservation: Reservation) = viewModelScope.launch {
+        reservationRepository.update(reservation)
+    }
+
+    fun remove(reservation: Reservation) = viewModelScope.launch {
+        reservationRepository.remove(reservation)
+    }
+
 }
