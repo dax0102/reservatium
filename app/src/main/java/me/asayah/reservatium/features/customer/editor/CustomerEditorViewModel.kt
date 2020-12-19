@@ -1,10 +1,7 @@
 package me.asayah.reservatium.features.customer.editor
 
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import me.asayah.reservatium.database.repository.ReservationRepository
 import me.asayah.reservatium.features.customer.Customer
@@ -22,7 +19,8 @@ class CustomerEditorViewModel @ViewModelInject constructor(
         }
 
     private val _reservations: MutableLiveData<List<ReservationBundle>> = MutableLiveData(emptyList())
-    internal var reservations: LiveData<List<ReservationBundle>> = _reservations
+    internal val reservations: LiveData<List<ReservationBundle>> = _reservations
+    internal val isEmpty: LiveData<Boolean> = Transformations.map(reservations) { it.isEmpty() }
 
     private val _customer: MutableLiveData<Customer> = MutableLiveData()
     internal val customerLive: LiveData<Customer> = _customer

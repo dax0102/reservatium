@@ -56,4 +56,5 @@
     <string name="error_customer_no_first_name">You forgot to enter the customer\'s first name</string>
     <string name="error_customer_no_last_name">You forgot to enter the customer\'s last name</string>
 
+    <string name="room_concat">Room %1$s</string>
 </resources>

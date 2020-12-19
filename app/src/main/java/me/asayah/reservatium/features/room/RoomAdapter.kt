@@ -25,7 +25,8 @@ class RoomAdapter(private val actionListener: ActionListener)
         override fun <T> onBind(t: T) {
             if (t is Room) {
                 with(binding) {
-                    titleView.text = t.name
+                    titleView.text = String.format(root.context.getString(R.string.room_concat),
+                        t.name)
                     root.setOnClickListener {
                         actionListener.onActionPerformed(t, ActionListener.Action.SELECT)
                     }

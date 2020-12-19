@@ -8,6 +8,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import dagger.hilt.android.AndroidEntryPoint
 import me.asayah.reservatium.R
+import me.asayah.reservatium.components.extensions.isCurrentYear
 import me.asayah.reservatium.components.formatting.DateFormatting
 import me.asayah.reservatium.databinding.EditorReservationBinding
 import me.asayah.reservatium.features.core.DateRange
@@ -67,10 +68,10 @@ class ReservationEditorActivity: BaseActivity() {
         viewModel.dateLive.observe(this) { date ->
             if (date?.startDate != null) {
                 binding.dateTextView.text = StringBuilder().apply {
-                    append(date.startDate?.format(DateFormatting.getFormatter(date.startDate?.year != currentYear)))
+                    append(date.startDate?.format(DateFormatting.getFormatter(date.startDate?.isCurrentYear() != true)))
                     date.endDate?.also {
                         append(" - ")
-                        append(it.format(DateFormatting.getFormatter(it.year != currentYear)))
+                        append(it.format(DateFormatting.getFormatter(date.endDate?.isCurrentYear() != true)))
                     }
                 }
             } else binding.dateTextView.setText(R.string.input_not_set)
@@ -85,11 +86,9 @@ class ReservationEditorActivity: BaseActivity() {
                         message(R.string.error_reservation_conflict_room_message)
                         positiveButton(R.string.button_reschedule) {
                             binding.dateTextView.performClick()
-                            viewModel.reset()
                         }
                         negativeButton(R.string.button_change_room) {
                             binding.roomTextView.performClick()
-                            viewModel.reset()
                         }
                     }
                 }
@@ -194,12 +193,14 @@ class ReservationEditorActivity: BaseActivity() {
             }
             RoomChooserActivity.REQUEST_CODE_CHOOSE -> {
                 data?.getParcelableExtra<Room>(RoomChooserActivity.EXTRA_ROOM)?.also {
+                    if (viewModel.room != it) viewModel.reset()
                     viewModel.room = it
                     createSnackbar(binding.root, R.string.feedback_room_updated)
                 }
             }
             DateRangeChooserActivity.REQUEST_CODE_CHOOSE -> {
                 data?.getParcelableExtra<DateRange>(DateRangeChooserActivity.EXTRA_DATE_RANGE)?.also {
+                    if (viewModel.date != it) viewModel.reset()
                     viewModel.date = it
                     createSnackbar(binding.root, R.string.feedback_date_updated)
                 }

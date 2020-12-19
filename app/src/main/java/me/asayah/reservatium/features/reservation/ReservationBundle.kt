@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.recyclerview.widget.DiffUtil
 import androidx.room.Embedded
 import kotlinx.android.parcel.Parcelize
+import me.asayah.reservatium.features.core.DateRange
 import me.asayah.reservatium.features.customer.Customer
 import me.asayah.reservatium.features.room.Room
 
@@ -16,7 +17,7 @@ data class ReservationBundle(
         @Embedded
         var room: Room
 ): Parcelable {
-
+    
     companion object {
         val CALLBACK = object: DiffUtil.ItemCallback<ReservationBundle>() {
             override fun areContentsTheSame(oldItem: ReservationBundle, newItem: ReservationBundle): Boolean {

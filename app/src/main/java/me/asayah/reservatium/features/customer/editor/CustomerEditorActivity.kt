@@ -3,22 +3,25 @@ package me.asayah.reservatium.features.customer.editor
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
 import dagger.hilt.android.AndroidEntryPoint
 import me.asayah.reservatium.R
 import me.asayah.reservatium.components.custom.ItemDecoration
 import me.asayah.reservatium.databinding.EditorCustomerBinding
 import me.asayah.reservatium.features.customer.Customer
+import me.asayah.reservatium.features.customer.CustomerReservationAdapter
 import me.asayah.reservatium.features.reservation.ReservationAdapter
 import me.asayah.reservatium.features.shared.base.BaseActivity
 import me.asayah.reservatium.features.shared.base.BaseAdapter
 
 @AndroidEntryPoint
-class CustomerEditorActivity: BaseActivity(), BaseAdapter.ActionListener {
+class CustomerEditorActivity: BaseActivity() {
     private lateinit var binding: EditorCustomerBinding
 
     private var requestCode = REQUEST_CODE_INSERT
 
-    private val reservationAdapter = ReservationAdapter(this)
+    private val reservationAdapter = CustomerReservationAdapter()
     private val viewModel: CustomerEditorViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,12 +54,14 @@ class CustomerEditorActivity: BaseActivity(), BaseAdapter.ActionListener {
             binding.lastNameEditText.setText(it.lastName)
         }
 
-        viewModel.reservations.observe(this) {
-            reservationAdapter.submitList(it)
-        }
+        viewModel.reservations.observe(this) { reservationAdapter.submitList(it) }
+        viewModel.isEmpty.observe(this) { binding.emptyView.isVisible = it }
 
         binding.actionButton.setOnClickListener {
-            val customer = viewModel.customer
+            val customer = viewModel.customer.apply {
+                firstName = binding.firstNameEditText.text.toString()
+                lastName = binding.lastNameEditText.text.toString()
+            }
 
             if (customer.firstName.isNullOrEmpty()) {
                 createSnackbar(binding.root, R.string.error_customer_no_first_name)
@@ -74,8 +79,6 @@ class CustomerEditorActivity: BaseActivity(), BaseAdapter.ActionListener {
             finish()
         }
     }
-
-    override fun <T> onActionPerformed(t: T, action: BaseAdapter.ActionListener.Action) {}
 
     companion object {
         const val REQUEST_CODE_INSERT = 1

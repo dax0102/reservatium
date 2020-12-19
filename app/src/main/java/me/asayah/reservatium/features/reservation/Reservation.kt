@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
+import me.asayah.reservatium.components.extensions.isCurrentYear
 import me.asayah.reservatium.components.formatting.DateFormatting
 import me.asayah.reservatium.features.customer.Customer
 import me.asayah.reservatium.features.room.Room
@@ -29,13 +30,12 @@ data class Reservation @JvmOverloads constructor(
 ): Parcelable {
 
     fun format(): String {
-        val currentYear = LocalDate.now().year
         return StringBuilder().apply {
-            append(startDate?.format(DateFormatting.getFormatter(currentYear == startDate?.year)))
+            append(startDate?.format(DateFormatting.getFormatter(startDate?.isCurrentYear() != true)))
             if (endDate != null) {
                 append(" - ")
                 append(endDate
-                        ?.format(DateFormatting.getFormatter(currentYear == endDate?.year)))
+                        ?.format(DateFormatting.getFormatter(endDate?.isCurrentYear() != true)))
             }
         }.toString()
     }

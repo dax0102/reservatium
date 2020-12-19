@@ -6,15 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import me.asayah.reservatium.database.repository.CustomerRepository
 import me.asayah.reservatium.database.repository.ReservationRepository
-import me.asayah.reservatium.database.repository.RoomRepository
 import me.asayah.reservatium.features.core.DateRange
 import me.asayah.reservatium.features.customer.Customer
 import me.asayah.reservatium.features.reservation.Reservation
 import me.asayah.reservatium.features.room.Room
-import java.time.LocalDate
-import java.time.LocalDateTime
 
 class ReservationEditorViewModel @ViewModelInject constructor(
     private val reservationRepository: ReservationRepository
@@ -24,7 +20,6 @@ class ReservationEditorViewModel @ViewModelInject constructor(
         set(value) {
             field = value
             _roomLive.value = value
-            _roomLive.value = _roomLive.value
             checkReservation()
         }
     var customer: Customer? = null
@@ -70,20 +65,19 @@ class ReservationEditorViewModel @ViewModelInject constructor(
         val reservations = reservationRepository.fetchSuspended()
         reservations.forEach {
 
-            val reservedStartDate = it.startDate
-            val reservedEndDate = it.startDate
-            val chosenDate = date?.startDate
-
-            if (chosenDate?.isAfter(reservedStartDate) == true
-                    || chosenDate?.isBefore(reservedEndDate) == true) {
-                when {
-                    it.room == room?.roomId ->
-                        _status.value = ReservationStatus.CONFLICT_DATE_ROOM
-                    it.customer == customer?.customerId ->
-                        _status.value = ReservationStatus.CONFLICT_DATE_CUSTOMER
-                    else -> _status.value = ReservationStatus.CONFLICT_NONE
-                }
-            } else _status.value = ReservationStatus.CONFLICT_NONE
+            if (date?.startDate != null && date?.endDate != null) {
+                if ((it.startDate?.isBefore(date?.endDate) == true
+                                && it.endDate?.isAfter(date?.startDate) == true)) {
+                    when {
+                        it.room == room?.roomId ->
+                            _status.value = ReservationStatus.CONFLICT_DATE_ROOM
+                        it.customer == customer?.customerId ->
+                            _status.value = ReservationStatus.CONFLICT_DATE_CUSTOMER
+                        else -> _status.value = ReservationStatus.CONFLICT_NONE
+                    }
+                } else
+                    _status.value = ReservationStatus.CONFLICT_NONE
+            }
         }
     }
 
