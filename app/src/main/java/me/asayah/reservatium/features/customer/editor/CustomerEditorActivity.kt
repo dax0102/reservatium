@@ -4,16 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
-import androidx.core.widget.doAfterTextChanged
 import dagger.hilt.android.AndroidEntryPoint
 import me.asayah.reservatium.R
 import me.asayah.reservatium.components.custom.ItemDecoration
 import me.asayah.reservatium.databinding.EditorCustomerBinding
 import me.asayah.reservatium.features.customer.Customer
 import me.asayah.reservatium.features.customer.CustomerReservationAdapter
-import me.asayah.reservatium.features.reservation.ReservationAdapter
 import me.asayah.reservatium.features.shared.base.BaseActivity
-import me.asayah.reservatium.features.shared.base.BaseAdapter
 
 @AndroidEntryPoint
 class CustomerEditorActivity: BaseActivity() {
@@ -28,7 +25,7 @@ class CustomerEditorActivity: BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = EditorCustomerBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setupTopAppBar(binding.toolbar)
+        setupToolbar(binding.toolbar)
         setToolbarTitle(R.string.editor_new_customer)
 
         if (intent.hasExtra(EXTRA_CUSTOMER)) {

@@ -35,7 +35,7 @@ class ReservationEditorActivity: BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = EditorReservationBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setupTopAppBar(binding.toolbar)
+        setupToolbar(binding.toolbar)
         setToolbarTitle(R.string.editor_new_reservation)
         formatter = DateFormatting.getFormatter(false)
 

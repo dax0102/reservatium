@@ -20,10 +20,13 @@ interface ReservationDao {
     @Query("SELECT * FROM reservations")
     suspend fun fetchSuspended(): List<Reservation>
 
-    @Query("SELECT * FROM reservations INNER JOIN customers ON customers.customerId == reservations.customer INNER JOIN rooms ON rooms.roomId == reservations.room")
-    fun fetch(): LiveData<List<ReservationBundle>>
-
     @Query("SELECT * FROM reservations INNER JOIN customers ON customers.customerId == reservations.customer INNER JOIN rooms ON rooms.roomId == reservations.room WHERE customer = :id")
     suspend fun fetchWithCustomer(id: String?): List<ReservationBundle>
+
+    @Query("SELECT * FROM reservations INNER JOIN customers ON customers.customerId == reservations.customer INNER JOIN rooms ON rooms.roomId == reservations.room WHERE room = :id")
+    suspend fun fetchWithRoom(id: String?): List<ReservationBundle>
+
+    @Query("SELECT * FROM reservations INNER JOIN customers ON customers.customerId == reservations.customer INNER JOIN rooms ON rooms.roomId == reservations.room")
+    fun fetch(): LiveData<List<ReservationBundle>>
 
 }

@@ -22,6 +22,7 @@
         <activity android:name=".features.customer.chooser.CustomerChooserActivity"/>
         <activity android:name=".features.room.chooser.RoomChooserActivity"/>
         <activity android:name=".features.shared.DateRangeChooserActivity" />
+        <activity android:name=".features.room.editor.RoomEditorActivity" />
     </application>
 
 </manifest>

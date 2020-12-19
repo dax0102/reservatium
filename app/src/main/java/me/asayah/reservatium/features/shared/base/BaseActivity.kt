@@ -17,7 +17,7 @@ abstract class BaseActivity: AppCompatActivity() {
         }
     }
 
-    protected fun setupTopAppBar(toolbar: MaterialToolbar) {
+    protected fun setupToolbar(toolbar: MaterialToolbar) {
         this.toolbar = toolbar
 
         setSupportActionBar(this.toolbar)
@@ -26,6 +26,10 @@ abstract class BaseActivity: AppCompatActivity() {
             setDisplayShowTitleEnabled(false)
             setDisplayHomeAsUpEnabled(true)
         }
+    }
+
+    protected fun setToolbarTitle(title: String?) {
+        this.toolbar?.title = title
     }
 
     protected fun setToolbarTitle(@StringRes id: Int) {

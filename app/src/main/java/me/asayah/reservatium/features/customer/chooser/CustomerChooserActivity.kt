@@ -24,7 +24,7 @@ class CustomerChooserActivity: BaseActivity(), BaseAdapter.ActionListener {
         super.onCreate(savedInstanceState)
         binding = ChooserCustomerBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setupTopAppBar(binding.appbarLayout.toolbar)
+        setupToolbar(binding.appbarLayout.toolbar)
         setToolbarTitle(R.string.chooser_customer)
 
         with(binding.recyclerView) {

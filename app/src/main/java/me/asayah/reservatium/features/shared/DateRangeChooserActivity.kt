@@ -18,7 +18,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import me.asayah.reservatium.R
 import me.asayah.reservatium.components.extensions.setCornerRadius
 import me.asayah.reservatium.components.extensions.setTextColorRes
-import me.asayah.reservatium.components.formatting.DateFormatting
 import me.asayah.reservatium.databinding.CalendarDayLayoutBinding
 import me.asayah.reservatium.databinding.CalendarMonthLegendBinding
 import me.asayah.reservatium.databinding.ChooserDateRangeBinding
@@ -50,7 +49,7 @@ class DateRangeChooserActivity: BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ChooserDateRangeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setupTopAppBar(binding.toolbar)
+        setupToolbar(binding.toolbar)
 
         startBackground = ResourcesCompat.getDrawable(resources,
                 R.drawable.shape_calendar_selected_start, null) as GradientDrawable

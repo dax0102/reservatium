@@ -1,5 +1,6 @@
 package me.asayah.reservatium.features.room
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import me.asayah.reservatium.R
 import me.asayah.reservatium.components.custom.ItemDecoration
 import me.asayah.reservatium.components.custom.ItemSwipeCallback
 import me.asayah.reservatium.databinding.FragmentRoomBinding
+import me.asayah.reservatium.features.room.editor.RoomEditorActivity
 import me.asayah.reservatium.features.shared.base.BaseAdapter
 import me.asayah.reservatium.features.shared.base.BaseFragment
 
@@ -48,7 +50,18 @@ class RoomFragment: BaseFragment(), BaseAdapter.ActionListener {
         viewModel.rooms.observe(viewLifecycleOwner) { roomAdapter.submitList(it) }
     }
 
-    override fun <T> onActionPerformed(t: T, action: BaseAdapter.ActionListener.Action) {}
+    override fun <T> onActionPerformed(t: T, action: BaseAdapter.ActionListener.Action) {
+        if (t is Room) {
+            when(action) {
+                BaseAdapter.ActionListener.Action.SELECT -> {
+                    startActivity(Intent(context, RoomEditorActivity::class.java).apply {
+                        putExtra(RoomEditorActivity.EXTRA_ROOM, t)
+                    })
+                }
+                BaseAdapter.ActionListener.Action.DELETE -> { }
+            }
+        }
+    }
 
     override fun onDestroy() {
         super.onDestroy()

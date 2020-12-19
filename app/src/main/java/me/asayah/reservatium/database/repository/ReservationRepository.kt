@@ -17,9 +17,13 @@ class ReservationRepository @Inject constructor(private val reservationDao: Rese
 
     suspend fun fetchSuspended(): List<Reservation> = reservationDao.fetchSuspended()
 
+    suspend fun fetchWithCustomer(id: String?): List<ReservationBundle>
+            = reservationDao.fetchWithCustomer(id)
+
+    suspend fun fetchWithRoom(id: String?): List<ReservationBundle>
+            = reservationDao.fetchWithRoom(id)
+
     fun fetch(): LiveData<List<ReservationBundle>> = reservationDao.fetch()
 
-    suspend fun fetchWithCustomer(id: String?): List<ReservationBundle>
-        = reservationDao.fetchWithCustomer(id)
 
 }

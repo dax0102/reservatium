@@ -23,7 +23,7 @@ class RoomChooserActivity: BaseActivity(), BaseAdapter.ActionListener {
         super.onCreate(savedInstanceState)
         binding = ChooserRoomBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setupTopAppBar(binding.appbarLayout.toolbar)
+        setupToolbar(binding.appbarLayout.toolbar)
         setToolbarTitle(R.string.chooser_room)
 
         with(binding.recyclerView) {
